@@ -5,11 +5,13 @@ import moment from 'moment';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteTodoReducer } from '../redux/todosSlice';
+import { updateTodoReducer } from '../redux/todosSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Todo({
   id,
   text,
+  desc,
   isCompleted,
   isToday,
   hour,
@@ -25,16 +27,17 @@ export default function Todo({
       await AsyncStorage.setItem('Todos', JSON.stringify(
         todos.filter(todo => todo.id !== id)
       ));
-      console.log('Todo deleted correctly');
+      console.log('Todo deleted succesfully');
     } catch (e) {
       console.log(e);
     }
   };
 
+
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Checkbox id={id} text={text} hour={hour} isCompleted={isCompleted} isToday={thisTodoIsToday} />
+        <Checkbox id={id} text={text} desc={desc} hour={hour} isCompleted={isCompleted} isToday={thisTodoIsToday} />
         <View style={{ flex: 1 }}>
           <Text
             selectable
@@ -43,6 +46,8 @@ export default function Todo({
                 ? [styles.text, { textDecorationLine: 'line-through', color: '#73737330' }]
                 : styles.text}
           >{text}</Text>
+          <Text
+          >{desc}</Text>
           <Text style={
             isCompleted
               ? [styles.time, { textDecorationLine: 'line-through', color: '#73737330' }]
@@ -50,7 +55,7 @@ export default function Todo({
           >{moment(localHour).format('LT')}</Text>
         </View>
         <TouchableOpacity onPress={handleDeleteTodo}>
-          <MaterialIcons name="delete-outline" size={24} color="#73737340" style={styles.delete} />
+          <MaterialIcons name="delete-outline" size={30} color="#73737340" style={styles.button} />
         </TouchableOpacity>
       </View>
     </View>
@@ -65,10 +70,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   text: {
-    fontSize: 15,
+    fontSize: 18,
     fontWeight: '500',
-    color: '#737373',
+    color: '#FF0000',
   },
+
   time: {
     fontSize: 13,
     color: '#a3a3a3',

@@ -4,32 +4,24 @@ import { useNavigation } from '@react-navigation/native';
 export default function Onboarding() {
     const navigation = useNavigation();
 
-    return(
+    return (
         <View style={styles.container}>
-            <Text style={styles.title}>Welcome to Minima</Text>
+            <Text style={styles.title}>Welcome to TodoApp</Text>
             <View style={styles.featureContainer}>
                 <Image style={styles.icon} source={require('../assets/arrows.png')} />
-                <View style={{flex: 1}}>
-                    <Text style={styles.subTitle}>Manage Daily Tasks</Text>
-                    <Text style={styles.subHeadline}>Minima is a simple app that helps you to increase your productivity.</Text>
+                <View style={{ flex: 1 }}>
+                    <Text style={styles.subHeadline}>Todo  is a simple app that helps you organize tasks.</Text>
                 </View>
             </View>
             <View style={styles.featureContainer}>
                 <Image style={styles.icon} source={require('../assets/bell.png')} />
-                <View style={{flex: 1}}>
+                <View style={{ flex: 1 }}>
                     <Text style={styles.subTitle}>Notifications</Text>
                     <Text style={styles.subHeadline}>Get notified when it's time to do you tasks.</Text>
                 </View>
             </View>
-            <View style={styles.featureContainer}>
-                <Image style={styles.icon} source={require('../assets/design.png')} />
-                <View style={{flex: 1}}>
-                    <Text style={styles.subTitle}>Minimal Design</Text>
-                    <Text style={styles.subHeadline}>Enjoy a simple design that allows you to focus only on what you have to do.</Text>
-                </View>
-            </View>
             <TouchableOpacity onPress={() => navigation.goBack()} style={styles.button}>
-                <Text style={[styles.subTitle, {color: '#fff'}]}>Continue</Text>
+                <Text style={[styles.subTitle, { color: '#fff' }]}>Continue</Text>
             </TouchableOpacity>
         </View>
     )

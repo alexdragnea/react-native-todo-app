@@ -10,6 +10,7 @@ import * as Notifications from 'expo-notifications';
 export default function AddTodo() {
 
     const [name, setName] = React.useState('');
+    const [description, setDescription] = React.useState('');
     const [date, setDate] = React.useState(new Date());
     const [isToday, setIsToday] = React.useState(false);
     const [withAlert, setWithAlert] = React.useState(false);
@@ -22,6 +23,7 @@ export default function AddTodo() {
         const newTodo = {
             id: Math.floor(Math.random() * 1000000),
             text: name,
+            desc: description,
             hour: isToday ? date.toISOString() : new Date(date).getTime() + 24 * 60 * 60 * 1000,
             isToday: isToday,
             isComplited: false
@@ -72,6 +74,15 @@ export default function AddTodo() {
                     />
                 </View>
                 <View style={styles.inputContainer}>
+                    <Text style={styles.inputTitle}>Description </Text>
+                    <TextInput
+                        style={styles.descInput}
+                        placeholder="Description"
+                        placeholderTextColor="#00000030"
+                        onChangeText={(desc) => { setDescription(desc) }}
+                    />
+                </View>
+                <View style={styles.inputContainer}>
                     <Text style={styles.inputTitle}>Hour</Text>
                     <DateTimePicker
                         value={date}
@@ -84,7 +95,7 @@ export default function AddTodo() {
                 <View style={[styles.inputContainer, { paddingBottom: 0, alignItems: 'center' }]}>
                     <View>
                         <Text style={styles.inputTitle}>Today</Text>
-                        <Text style={{ color: '#00000040', fontSize: 12, maxWidth: '84%', paddingBottom: 10 }}>If you disable today, the task will be considered as tomorrow</Text>
+                        <Text style={{ color: '#00000040', fontSize: 12, maxWidth: '84%', paddingBottom: 10 }}>If you disable today, the task will be considered as tomorrow.</Text>
                     </View>
                     <Switch
                         value={isToday}
@@ -94,7 +105,6 @@ export default function AddTodo() {
                 <View style={[styles.inputContainer, { paddingBottom: 0, alignItems: 'center' }]}>
                     <View>
                         <Text style={styles.inputTitle}>Alert</Text>
-                        <Text style={{ color: '#00000040', fontSize: 12, maxWidth: '85%' }}>You will receive an alert at the time you set for this reminder</Text>
                     </View>
                     <Switch
                         value={withAlert}
@@ -121,6 +131,11 @@ const styles = StyleSheet.create({
         borderBottomColor: '#00000030',
         borderBottomWidth: 1,
         width: '80%',
+    },
+    descInput: {
+        borderBottomColor: '#00000030',
+        borderBottomWidth: 1,
+        width: '68%',
     },
     container: {
         flex: 1,
