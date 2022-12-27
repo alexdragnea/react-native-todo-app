@@ -28,6 +28,19 @@ export default function Home() {
     const [expoPushToken, setExpoPushToken] = useState('');
     const navigation = useNavigation();
 
+    const [greet, setGreet] = useState('');
+
+    const findGreet = () => {
+        const hrs = new Date().getHours();
+        if (hrs === 0 || hrs < 12) return setGreet('Morning');
+        if (hrs === 1 || hrs < 17) return setGreet('Afternoon');
+        setGreet('Evening');
+    };
+
+    useEffect(() => {
+        findGreet();
+    }, []);
+
 
     useEffect(() => {
         registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
@@ -50,9 +63,6 @@ export default function Home() {
             if (todos !== null) {
                 dispatch(setTodosReducer(JSON.parse(todos)));
             }
-            // setLocalData(todosData.sort((a, b) => {
-            //     return a.isCompleted - b.isCompleted;
-            // }));
             return;
         }
         setIsHidden(!isHidden);
@@ -93,10 +103,14 @@ export default function Home() {
     const tomorrowTodos = todos.filter(todo => moment(todo.hour).isAfter(moment(), 'day'));
 
     return (
+
+
+
         todos.length > 0 ?
 
 
             <ScrollView style={styles.container}>
+                <Text style={styles.subTitle}>{`Good ${greet}`}</Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                     <Text style={styles.title}>Today</Text>
                     <TouchableOpacity onPress={handleHideCompleted}>
@@ -122,14 +136,14 @@ export default function Home() {
                             source={require('../assets/nothingToday.png')}
                             style={{ width: 150, height: 150, marginBottom: 20, resizeMode: 'contain' }}
                         />
-                        <Text style={{ fontSize: 13, color: '#000', fontWeight: 'bold' }}>NICE!</Text>
+                        <Text style={styles.subTitle}>{`Good ${greet}`}</Text>
                         <Text style={{ fontSize: 13, color: '#737373', fontWeight: '500' }}>Nothing is scheduled for tomorrow..</Text>
                     </View>
                 }
                 <StatusBar style='auto' />
             </ScrollView>
             : <View style={styles.container}>
-
+                <Text style={styles.subTitle}>{`Good ${greet}`}</Text>
                 <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
                     <Image
                         source={require('../assets/nothing.png')}
@@ -138,7 +152,6 @@ export default function Home() {
                     <Text style={{ fontSize: 13, color: '#000', fontWeight: 'bold' }}>NICE!</Text>
                     <Text style={{ fontSize: 13, color: '#737373', fontWeight: '500' }}>Nothing is scheduled.</Text>
                 </View>
-
             </View>
     )
 }
@@ -149,6 +162,13 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 35,
         marginTop: 10,
+    },
+    subTitle: {
+        fontSize: 25,
+        fontWeight: 'bold',
+        marginBottom: 35,
+        marginTop: 10,
+        textAlign: 'center',
     },
     pic: {
         width: 42,
