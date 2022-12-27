@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, Alert } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import { updateTodoReducer } from '../redux/todosSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,8 +27,28 @@ export default function Checkbox({ id, isCompleted, isToday, text, desc, hour })
     }
   }
 
+  const displayCompleteAlert = () => {
+    Alert.alert(
+      'Are you sure?',
+      'This action will mark/unmark the Todo as completed.',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('no thanks'),
+        },
+        {
+          text: 'Yes',
+          onPress: handleCheckbox,
+        },
+      ],
+      {
+        cancelable: true,
+      }
+    );
+  };
+
   return isToday ? (
-    <TouchableOpacity onPress={handleCheckbox} style={isCompleted ? styles.checked : styles.unChecked}>
+    <TouchableOpacity onPress={displayCompleteAlert} style={isCompleted ? styles.checked : styles.unChecked}>
       {isCompleted && <Entypo name="check" size={16} color="#FAFAFA" />}
     </TouchableOpacity>
   ) : (
@@ -39,8 +59,8 @@ export default function Checkbox({ id, isCompleted, isToday, text, desc, hour })
 
 const styles = StyleSheet.create({
   checked: {
-    width: 20,
-    height: 20,
+    width: 25,
+    height: 25,
     marginRight: 13,
     borderRadius: 6,
     backgroundColor: '#262626',
@@ -57,8 +77,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   unChecked: {
-    width: 20,
-    height: 20,
+    width: 22,
+    height: 22,
     marginRight: 13,
     borderWidth: 2,
     borderColor: '#E8E8E8',
@@ -75,11 +95,11 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   isToday: {
-    width: 10,
-    height: 10,
-    marginHorizontal: 10,
-    borderRadius: 10,
-    backgroundColor: '#262626',
+    width: 22,
+    height: 22,
+    marginHorizontal: 13,
+    borderRadius: 13,
+    backgroundColor: '#008000',
     marginRight: 13,
     marginLeft: 15,
   },

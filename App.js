@@ -25,7 +25,9 @@ function HomeScreen() {
     </SafeAreaView>
   );
 }
+
 export default function App() {
+
   return (
     <Provider store={store}>
       <NavigationContainer>

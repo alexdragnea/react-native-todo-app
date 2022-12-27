@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native';
 import Checkbox from './Checkbox';
 import moment from 'moment';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -33,6 +33,26 @@ export default function Todo({
     }
   };
 
+  const displayDeleteAlert = () => {
+    Alert.alert(
+      'Are you sure?',
+      'This action will delete your todo permanently!',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel'),
+        },
+        {
+          text: 'Delete',
+          onPress: handleDeleteTodo,
+        },
+      ],
+      {
+        cancelable: true,
+      }
+    );
+  };
+
 
   return (
     <View style={styles.container}>
@@ -47,18 +67,25 @@ export default function Todo({
                 : styles.text}
           >{text}</Text>
           <Text
+            selectable
+            style={
+              isCompleted
+                ? [styles.description, { textDecorationLine: 'line-through', color: '#73737330' }]
+                : styles.description}
           >{desc}</Text>
+
           <Text style={
             isCompleted
               ? [styles.time, { textDecorationLine: 'line-through', color: '#73737330' }]
-              : styles.time}
-          >{moment(localHour).format('LT')}</Text>
+              : styles.time}>
+            <Text
+            >Due at </Text>{moment(localHour).format('LT')}</Text>
         </View>
-        <TouchableOpacity onPress={handleDeleteTodo}>
+        <TouchableOpacity onPress={displayDeleteAlert}>
           <MaterialIcons name="delete-outline" size={30} color="#73737340" style={styles.button} />
         </TouchableOpacity>
       </View>
-    </View>
+    </View >
   );
 }
 
@@ -71,13 +98,17 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    fontWeight: '500',
+    fontWeight: '700',
     color: '#FF0000',
   },
+  description: {
+    fontSize: 16,
+    fontWeight: '500',
+  },
+
 
   time: {
-    fontSize: 13,
-    color: '#a3a3a3',
-    fontWeight: '500',
+    fontSize: 15,
+    fontWeight: '800',
   }
 });

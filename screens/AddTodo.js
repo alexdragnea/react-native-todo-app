@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, TextInput, Switch, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, TextInput, Switch, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from '@react-navigation/native';
@@ -20,6 +20,17 @@ export default function AddTodo() {
     const dispatch = useDispatch();
 
     const addTodo = async () => {
+        if (!name.trim()) {
+            Alert.alert('Error', 'Please enter a todo title!');
+
+            return;
+        }
+        //Check for the Email TextInput
+        if (!description.trim()) {
+            Alert.alert('Error', 'Please enter a description!');
+            return;
+        }
+
         const newTodo = {
             id: Math.floor(Math.random() * 1000000),
             text: name,
@@ -42,6 +53,7 @@ export default function AddTodo() {
         }
     };
 
+
     const scheduleTodoNotification = async (todo) => {
         // set trigger time to todo.hour if todo.isToday === true else set trigger time to todo.hour + 24 hours
         // const trigger = todo.isToday ? todo.hour : new Date(todo.hour).getTime() + 24 * 60 * 60 * 1000;
@@ -49,8 +61,11 @@ export default function AddTodo() {
         try {
             await Notifications.scheduleNotificationAsync({
                 content: {
-                    title: 'Alert! You have a task to do!',
+                    title: 'Notification: you have a task to do!',
                     body: todo.text,
+                    sound: true,
+                    vibrate: true,
+
                 },
                 trigger,
             });
@@ -63,12 +78,12 @@ export default function AddTodo() {
     return (
         <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
             <View style={styles.container}>
-                <Text style={styles.title}>Add a Task</Text>
+                <Text style={styles.title}>Add a Todo</Text>
                 <View style={styles.inputContainer}>
                     <Text style={styles.inputTitle}>Name</Text>
                     <TextInput
                         style={styles.textInput}
-                        placeholder="Task"
+                        placeholder="Todo"
                         placeholderTextColor="#00000030"
                         onChangeText={(text) => { setName(text) }}
                     />
@@ -83,7 +98,7 @@ export default function AddTodo() {
                     />
                 </View>
                 <View style={styles.inputContainer}>
-                    <Text style={styles.inputTitle}>Hour</Text>
+                    <Text style={styles.inputTitle}>Time</Text>
                     <DateTimePicker
                         value={date}
                         mode={'time'}
