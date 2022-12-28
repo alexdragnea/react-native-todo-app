@@ -46,7 +46,7 @@ jobs:
 #        run: yarn install
 #      - name: Upload to Google Play Console
 #        run: expo upload:android --latest --key <Path to Google Sevice Account Json>
-  build-for-IOS:
+  Build-for-IOS:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2

@@ -100,10 +100,13 @@ export default function AddTodo() {
                 <View style={styles.inputContainer}>
                     <Text style={styles.inputTitle}>Time</Text>
                     <DateTimePicker
+                        testID="dateTimePicker"
+                        display="default"
                         value={date}
                         mode={'time'}
                         is24Hour={true}
                         onChange={(event, selectedDate) => setDate(selectedDate)}
+                        onCancel={() => this.setState({showDate: false})}
                         style={{ width: '80%' }}
                     />
                 </View>
