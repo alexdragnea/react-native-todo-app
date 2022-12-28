@@ -30,7 +30,8 @@
     "react-native-screens": "~3.18.0",
     "react-native-web": "~0.18.7",
     "react-redux": "^8.0.5",
-    "redux": "^4.2.0"
+    "redux": "^4.2.0",
+    "yarn": "^1.22.19"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3"
