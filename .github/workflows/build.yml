@@ -1,44 +1,24 @@
 name: update
 on: push
-
 jobs:
-  update:
-    name: EAS Update
-    runs-on: ubuntu-latest
+  Build-for-android:
+    runs-on: macos-latest
     steps:
-      - name: Check for EXPO_TOKEN
-        run: |
-          if [ -z "${{ secrets.EXPO_TOKEN }}" ]; then
-            echo "You must provide an EXPO_TOKEN secret linked to this project's Expo account in this repo's secrets. Learn more: https://docs.expo.dev/eas-update/github-actions"
-            exit 1
-          fi
-
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Setup Node
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
         with:
-          node-version: 16.x
-          cache: npm
-
-      - name: Setup Expo
-        uses: expo/expo-github-action@v7
+          node-version: 12.x
+      - uses: actions/setup-java@v1.4.3
         with:
-          expo-version: latest
-          eas-version: latest
-          token: ${{ secrets.EXPO_TOKEN }}
-
-
-      - name: Restore cache
-        uses: actions/cache@v2
+          java-version: '9.0.4' # The JDK version to make available on the path.
+          java-package: jdk # (jre, jdk, or jdk+fx) - defaults to jdk
+          architecture: x64 # (x64 or x86) - defaults to x64
+      - uses: expo/expo-github-action@v5
         with:
-          path: ${{ steps.yarn-cache-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-yarn-
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Publish update
-        run: eas update --auto
+          expo-version: 3.x
+          expo-username: ${{ secrets.EXPO_CLI_USERNAME }}
+          expo-password: ${{ secrets.EXPO_CLI_PASSWORD }}
+      - name: Install deps
+        run: yarn install
+      - name: Build Android APK Bundle
+        run: expo build:android
