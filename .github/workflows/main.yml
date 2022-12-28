@@ -20,6 +20,8 @@ jobs:
           expo-password: ${{ secrets.EXPO_CLI_PASSWORD }}
       - name: Install deps
         run: yarn install
+      - name: Login
+        run: expo login -u expo-username -p expo-password
       - name: Build Android APK Bundle
         run: expo build:android
   Push-to-Playstore:
