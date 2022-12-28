@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5c34437d-485f-439a-8f76-d53ff00ff86e" name="Changes" comment="add horizontal scaling">
-      <change beforePath="$PROJECT_DIR$/.idea/sonarIssues.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarIssues.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,18 +28,18 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SONARLINT_PRECOMMIT_ANALYSIS" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/screens" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2021.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\adragnea\OneDrive - ENDAVA\Desktop\react\Test\react-native-todo-app\assets" />
       <recent name="C:\Users\adragnea\OneDrive - ENDAVA\Desktop\react\Test\react-native-todo-app\screens" />
       <recent name="C:\Users\adragnea\OneDrive - ENDAVA\Desktop\react\Test\react-native-todo-app\components" />
       <recent name="C:\Users\adragnea\OneDrive - ENDAVA\Desktop\react\Test\react-native-todo-app\redux" />
       <recent name="C:\Users\adragnea\OneDrive - ENDAVA\Desktop\react\Test\react-native-todo-app\hooks" />
-      <recent name="C:\Users\adragnea\OneDrive - ENDAVA\Desktop\react\Test\react-native-todo-app" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -60,7 +61,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672226767428</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add icons to the header">
+      <created>1672260629615</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1672260629615</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -81,6 +89,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add horizontal scaling" />
     <MESSAGE value="fix date time picker bug on android devices" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix date time picker bug on android devices" />
+    <MESSAGE value="add icons to the header" />
+    <option name="LAST_COMMIT_MESSAGE" value="add icons to the header" />
   </component>
 </project>
