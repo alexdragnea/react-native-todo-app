@@ -136,7 +136,6 @@ export default function Home() {
                             source={require('../assets/nothingToday.png')}
                             style={{ width: 150, height: 150, marginBottom: 20, resizeMode: 'contain' }}
                         />
-                        <Text style={styles.subTitle}>{`Good ${greet}`}</Text>
                         <Text style={{ fontSize: 13, color: '#737373', fontWeight: '500' }}>Nothing is scheduled for tomorrow..</Text>
                     </View>
                 }

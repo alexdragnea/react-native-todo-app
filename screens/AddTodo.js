@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, TextInput, Switch, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import React, { useState } from 'react';
+import { View, TouchableOpacity, Text, StyleSheet, TextInput, Switch, TouchableWithoutFeedback, Keyboard, Alert, Button  } from 'react-native';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,15 +9,28 @@ import * as Notifications from 'expo-notifications';
 
 export default function AddTodo() {
 
+    const [date, setDate] = useState(new Date());
+    const [datePickerVisible, setDatePickerVisible] = useState(false);
     const [name, setName] = React.useState('');
     const [description, setDescription] = React.useState('');
-    const [date, setDate] = React.useState(new Date());
     const [isToday, setIsToday] = React.useState(false);
     const [withAlert, setWithAlert] = React.useState(false);
-    // const [listTodos, setListTodos] = React.useState([]);
     const listTodos = useSelector(state => state.todos.todos);
     const navigation = useNavigation();
     const dispatch = useDispatch();
+
+    const showDatePicker = () => {
+        setDatePickerVisible(true);
+    };
+
+    const hideDatePicker = () => {
+        setDatePickerVisible(false);
+    };
+
+    const handleConfirm = (date) => {
+        setDate(date);
+        hideDatePicker();
+    };
 
     const addTodo = async () => {
         if (!name.trim()) {
@@ -99,12 +112,13 @@ export default function AddTodo() {
                 </View>
                 <View style={styles.inputContainer}>
                     <Text style={styles.inputTitle}>Time</Text>
-                    <DateTimePicker
-                        value={date}
-                        mode={'time'}
-                        is24Hour={true}
-                        onChange={(event, selectedDate) => setDate(selectedDate)}
-                        style={{ width: '80%' }}
+                    <Button title="Select time" onPress={showDatePicker} />
+                    <DateTimePickerModal
+                        date={date}
+                        isVisible={datePickerVisible}
+                        mode="time"
+                        onConfirm={handleConfirm}
+                        onCancel={hideDatePicker}
                     />
                 </View>
                 <View style={[styles.inputContainer, { paddingBottom: 0, alignItems: 'center' }]}>
