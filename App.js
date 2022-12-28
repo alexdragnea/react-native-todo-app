@@ -1,4 +1,5 @@
-import {SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Button, Image, Alert, Linking } from 'react-native';
+import { IconButton, MD3Colors } from 'react-native-paper';
 import Home from './screens/Home';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -25,6 +26,14 @@ function HomeScreen() {
     );
 }
 
+function LogoTitle() {
+    return (
+        <Image
+            style={{ width: 40, height: 40, bottom: 5 }}
+            source={require('./assets/todo-icon.png')}
+        />
+    );
+}
 
 export default function App() {
 
@@ -43,6 +52,26 @@ export default function App() {
                             headerTitleStyle: {
                                 fontWeight: 'bold',
                             },
+                            headerTitleAlign: 'center',
+                            headerLeft: (props) => <LogoTitle {...props} />,
+                            headerRight: () => (
+                                <IconButton  icon="help"
+                                                    onPress={() =>
+
+                                        Alert.alert(
+                                            'Todo App',
+                                            'App version is 1.0.0.',
+                                            [
+                                                {text: 'Github', onPress:()=> Linking.openURL('https://github.com/alexdragnea/react-native-todo-app')},
+                                                {text: 'Close', onPress: () => console.log('Ask me later pressed')},
+                                            ],
+                                            { cancelable: false }
+                                        )}
+                                    title="Info"
+                                    color="#00cc00"
+                                />
+                            ),
+
                         }}
                     />
                     <Stack.Screen
@@ -57,6 +86,7 @@ export default function App() {
                             headerTitleStyle: {
                                 fontWeight: 'bold',
                             },
+                            headerTitleAlign: 'center'
                         }}
                     />
                     <Stack.Screen
@@ -70,6 +100,7 @@ export default function App() {
                             headerTitleStyle: {
                                 fontWeight: 'bold',
                             },
+                            headerTitleAlign: 'center'
                         }}
                     />
                 </Stack.Navigator>
