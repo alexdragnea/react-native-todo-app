@@ -1,5 +1,5 @@
-import {SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Button, Image, Alert, Linking } from 'react-native';
-import { IconButton, MD3Colors } from 'react-native-paper';
+import {Alert, Image, Linking, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {IconButton, MD3Colors} from 'react-native-paper';
 import Home from './screens/Home';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -29,7 +29,7 @@ function HomeScreen() {
 function LogoTitle() {
     return (
         <Image
-            style={{ width: 40, height: 40, bottom: 5 }}
+            style={{width: 40, height: 40, bottom: 5}}
             source={require('./assets/todo-icon.png')}
         />
     );
@@ -55,20 +55,24 @@ export default function App() {
                             headerTitleAlign: 'center',
                             headerLeft: (props) => <LogoTitle {...props} />,
                             headerRight: () => (
-                                <IconButton  icon="help"
-                                                    onPress={() =>
+                                <IconButton icon="help" iconColor={MD3Colors.primary100}
+                                            onPress={() =>
 
-                                        Alert.alert(
-                                            'Todo App',
-                                            'App version is 1.0.0.',
-                                            [
-                                                {text: 'Github', onPress:()=> Linking.openURL('https://github.com/alexdragnea/react-native-todo-app')},
-                                                {text: 'Close', onPress: () => console.log('Ask me later pressed')},
-                                            ],
-                                            { cancelable: false }
-                                        )}
-                                    title="Info"
-                                    color="#00cc00"
+                                                Alert.alert(
+                                                    'Todo App',
+                                                    'App version is 1.0.0.',
+                                                    [
+                                                        {
+                                                            text: 'Github',
+                                                            onPress: () => Linking.openURL('https://github.com/alexdragnea/react-native-todo-app')
+                                                        },
+                                                        {
+                                                            text: 'Close',
+                                                            onPress: () => console.log('Ask me later pressed')
+                                                        },
+                                                    ],
+                                                    {cancelable: false}
+                                                )}
                                 />
                             ),
 
@@ -105,7 +109,13 @@ export default function App() {
                     />
                 </Stack.Navigator>
                 <View>
-                    <Text style={{ textAlignVertical: "center", textAlign: "center", fontSize: 15, height: 33, backgroundColor: '#f4511e' }}>© 2022. All rights reserved..</Text>
+                    <Text style={{
+                        textAlignVertical: "center",
+                        textAlign: "center",
+                        fontSize: 15,
+                        height: 33,
+                        backgroundColor: '#f4511e'
+                    }}>© 2022. All rights reserved..</Text>
                 </View>
             </NavigationContainer>
         </Provider>
