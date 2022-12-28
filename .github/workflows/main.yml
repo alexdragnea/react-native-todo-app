@@ -1,5 +1,8 @@
 name: Build CI/CD
-on: push
+on:
+  push:
+    branches:
+      - main
 jobs:
   Build-for-android:
     runs-on: macos-latest

@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5c34437d-485f-439a-8f76-d53ff00ff86e" name="Changes" comment="add horizontal scaling">
       <change beforePath="$PROJECT_DIR$/.github/workflows/main.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/main.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarIssues.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarIssues.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/AddTodo.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/AddTodo.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,6 +81,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add horizontal scaling" />
-    <option name="LAST_COMMIT_MESSAGE" value="add horizontal scaling" />
+    <MESSAGE value="fix date time picker bug on android devices" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix date time picker bug on android devices" />
   </component>
 </project>
