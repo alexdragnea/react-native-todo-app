@@ -1,12 +1,12 @@
-import {Alert, Image, Linking, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {IconButton, MD3Colors} from 'react-native-paper';
+import { Alert, Image, Linking, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { IconButton, MD3Colors } from 'react-native-paper';
 import Home from './screens/Home';
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AddTodo from './screens/AddTodo';
 import Onboarding from './screens/Onboarding';
-import {store} from './redux/store';
-import {Provider} from 'react-redux';
+import { store } from './redux/store';
+import { Provider } from 'react-redux';
 import React from 'react';
 
 const Stack = createNativeStackNavigator();
@@ -15,7 +15,7 @@ function HomeScreen() {
     const navigation = useNavigation();
     return (
         <SafeAreaView style={styles.container}>
-            <Home/>
+            <Home />
             <TouchableOpacity
                 style={styles.button}
                 onPress={() => navigation.navigate('Add')}
@@ -29,7 +29,7 @@ function HomeScreen() {
 function LogoTitle() {
     return (
         <Image
-            style={{width: 40, height: 40, bottom: 5}}
+            style={{ width: 40, height: 40, bottom: 5 }}
             source={require('./assets/todo-icon.png')}
         />
     );
@@ -46,7 +46,7 @@ export default function App() {
                         component={HomeScreen}
                         options={{
                             headerShown: true, headerStyle: {
-                                backgroundColor: '#f4511e',
+                                backgroundColor: '#0C2D48',
                             },
                             headerTintColor: '#fff',
                             headerTitleStyle: {
@@ -56,23 +56,23 @@ export default function App() {
                             headerLeft: (props) => <LogoTitle {...props} />,
                             headerRight: () => (
                                 <IconButton icon="help" iconColor={MD3Colors.primary100}
-                                            onPress={() =>
+                                    onPress={() =>
 
-                                                Alert.alert(
-                                                    'Todo App',
-                                                    'App version is 1.0.0.',
-                                                    [
-                                                        {
-                                                            text: 'Github',
-                                                            onPress: () => Linking.openURL('https://github.com/alexdragnea/react-native-todo-app')
-                                                        },
-                                                        {
-                                                            text: 'Close',
-                                                            onPress: () => console.log('Ask me later pressed')
-                                                        },
-                                                    ],
-                                                    {cancelable: false}
-                                                )}
+                                        Alert.alert(
+                                            'Todo App',
+                                            'App version is 1.0.0.',
+                                            [
+                                                {
+                                                    text: 'Github',
+                                                    onPress: () => Linking.openURL('https://github.com/alexdragnea/react-native-todo-app')
+                                                },
+                                                {
+                                                    text: 'Close',
+                                                    onPress: () => console.log('Ask me later pressed')
+                                                },
+                                            ],
+                                            { cancelable: false }
+                                        )}
                                 />
                             ),
 
@@ -84,7 +84,7 @@ export default function App() {
                         options={{
                             presentation: 'modal',
                             headerShown: true, headerStyle: {
-                                backgroundColor: '#f4511e',
+                                backgroundColor: '#0C2D48',
                             },
                             headerTintColor: '#fff',
                             headerTitleStyle: {
@@ -98,7 +98,7 @@ export default function App() {
                         component={Onboarding}
                         options={{
                             headerShown: true, headerStyle: {
-                                backgroundColor: '#f4511e',
+                                backgroundColor: '#0C2D48',
                             },
                             headerTintColor: '#fff',
                             headerTitleStyle: {
@@ -113,9 +113,9 @@ export default function App() {
                         textAlignVertical: "center",
                         textAlign: "center",
                         fontSize: 15,
-                        height: 33,
-                        backgroundColor: '#f4511e'
-                    }}>© 2022. All rights reserved..</Text>
+                        height: 34,
+                        backgroundColor: '#0C2D48'
+                    }}></Text>
                 </View>
             </NavigationContainer>
         </Provider>

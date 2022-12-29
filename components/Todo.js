@@ -63,26 +63,26 @@ export default function Todo({
             selectable
             style={
               isCompleted
-                ? [styles.text, { textDecorationLine: 'line-through', color: '#73737330' }]
+                ? [styles.text, { textDecorationLine: 'line-through', color: '#ff1900' }]
                 : styles.text}
           >{text}</Text>
           <Text
             selectable
             style={
               isCompleted
-                ? [styles.description, { textDecorationLine: 'line-through', color: '#73737330' }]
+                ? [styles.description, { textDecorationLine: 'line-through', color: '#20537d' }]
                 : styles.description}
           >{desc}</Text>
 
           <Text style={
             isCompleted
-              ? [styles.time, { textDecorationLine: 'line-through', color: '#73737330' }]
+              ? [styles.time, { textDecorationLine: 'line-through', color: '#20537d' }]
               : styles.time}>
             <Text
             >Due at </Text>{moment(localHour).format('LT')}</Text>
         </View>
         <TouchableOpacity onPress={displayDeleteAlert}>
-          <MaterialIcons name="delete-outline" size={30} color="#73737340" style={styles.button} />
+          <MaterialIcons name="delete-outline" size={30} color="#20537d" style={styles.button} />
         </TouchableOpacity>
       </View>
     </View >
@@ -104,11 +104,13 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 16,
     fontWeight: '500',
+    color: '#20537d',
   },
 
 
   time: {
     fontSize: 15,
     fontWeight: '800',
+    color: '#20537d',
   }
 });

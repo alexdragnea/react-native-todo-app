@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, Platform, StatusBar, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Platform, StatusBar, ScrollView, Switch } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import { ThemeProvider } from 'styled-components/native';
+import { darkTheme, lightTheme } from '../components/theme';
+import { Container, ThemeButton } from '../components/style';
 import { hideComplitedReducer, setTodosReducer } from '../redux/todosSlice';
 import ListTodos from '../components/ListTodos';
 import { useGetTodos } from '../hooks/useGetTodos';
@@ -8,7 +11,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Notifications from 'expo-notifications';
 import { useNavigation } from '@react-navigation/native';
 import * as Device from 'expo-device';
-import { NavigationContainer } from '@react-navigation/native';
 import moment from 'moment';
 
 Notifications.setNotificationHandler({
@@ -20,6 +22,32 @@ Notifications.setNotificationHandler({
 })
 
 export default function Home() {
+    const [isEnabled, setIsEnabled] = useState(false);
+    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+    const [theme, setTheme] = useState('light');
+
+    useEffect(() => {
+        getThemeAndSetIt();
+    }, []);
+
+    const getThemeAndSetIt = async () => {
+        try {
+            const themeValue = await AsyncStorage.getItem('@theme');
+            if (themeValue) setTheme(themeValue);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const toggleTheme = async () => {
+        const themeValue = theme === 'dark' ? 'light' : 'dark';
+        try {
+            await AsyncStorage.setItem('@theme', themeValue);
+            setTheme(themeValue);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     useGetTodos();
     const todos = useSelector(state => state.todos.todos);
@@ -105,58 +133,89 @@ export default function Home() {
     return (
 
 
-
         todos.length > 0 ?
 
+            <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
+                <Container>
+                    <ScrollView style={styles.container}>
+                        <Text style={styles.subTitle}>{`Good ${greet}`}</Text>
+                        <ThemeButton>
+                            <Image
+                                source={require('../assets/dark-mode.png')}
+                                style={{ width: 35, height: 35, marginLeft: 1, marginTop: -35, resizeMode: 'contain' }}
+                            />
+                            <Switch
+                                value={isEnabled}
+                                onValueChange={() => (toggleTheme(), setIsEnabled(previousState => !previousState))}>
 
-            <ScrollView style={styles.container}>
-                <Text style={styles.subTitle}>{`Good ${greet}`}</Text>
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <Text style={styles.title}>Today</Text>
-                    <TouchableOpacity onPress={handleHideCompleted}>
-                        <Text style={{ color: '#3478F6' }}>{isHidden ? "Show Completed" : "Hide Completed"}</Text>
-                    </TouchableOpacity>
-                </View>
-                {todayTodos.length > 0
-                    ? <ListTodos todosData={todayTodos} />
-                    : <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginBottom: 20 }}>
+                            </Switch>
+                        </ThemeButton>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                            <Text style={styles.title}>Today</Text>
+                            <TouchableOpacity onPress={handleHideCompleted}>
+                                <Text style={{ color: '#3478F6' }}>{isHidden ? "Show Completed" : "Hide Completed"}</Text>
+                            </TouchableOpacity>
+                        </View>
+                        {todayTodos.length > 0
+                            ? <ListTodos todosData={todayTodos} />
+                            : <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginBottom: 20 }}>
+                                <Image
+                                    source={require('../assets/nothingTomorrow.png')}
+                                    style={{ width: 150, height: 150, marginBottom: 20, resizeMode: 'contain' }}
+                                />
+                                <Text style={{ fontSize: 13, color: '#737373', fontWeight: 'bold' }}>CONGRATS!</Text>
+                                <Text style={{ fontSize: 13, color: '#737373', fontWeight: '500' }}>You don't have any task, enjoy your day.</Text>
+                            </View>
+                        }
+                        <Text style={styles.title}>Tomorrow</Text>
+                        {tomorrowTodos.length > 0
+                            ? <ListTodos todosData={tomorrowTodos} />
+                            : <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginBottom: 20 }}>
+                                <Image
+                                    source={require('../assets/nothingToday.png')}
+                                    style={{ width: 150, height: 150, marginBottom: 20, resizeMode: 'contain' }}
+                                />
+                                <Text style={{ fontSize: 13, color: '#737373', fontWeight: '500' }}>Nothing is scheduled for tomorrow..</Text>
+                            </View>
+                        }
+                        <StatusBar style='auto' />
+                    </ScrollView>
+                </Container>
+            </ThemeProvider >
+            :
+
+            <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
+                <Container>
+                    <Text style={styles.subTitle}>{`Good ${greet}`}</Text>
+                    <ThemeButton>
                         <Image
-                            source={require('../assets/nothingTomorrow.png')}
-                            style={{ width: 150, height: 150, marginBottom: 20, resizeMode: 'contain' }}
+                            source={require('../assets/dark-mode.png')}
+                            style={{ width: 35, height: 35, marginLeft: 1, marginTop: -35, resizeMode: 'contain' }}
                         />
-                        <Text style={{ fontSize: 13, color: '#000', fontWeight: 'bold' }}>CONGRATS!</Text>
-                        <Text style={{ fontSize: 13, color: '#737373', fontWeight: '500' }}>You don't have any task, enjoy your day.</Text>
-                    </View>
-                }
-                <Text style={styles.title}>Tomorrow</Text>
-                {tomorrowTodos.length > 0
-                    ? <ListTodos todosData={tomorrowTodos} />
-                    : <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginBottom: 20 }}>
+                        <Switch
+                            value={isEnabled}
+                            onValueChange={() => (toggleTheme(), setIsEnabled(previousState => !previousState))}>
+
+                        </Switch>
+                    </ThemeButton>
+                    <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
                         <Image
-                            source={require('../assets/nothingToday.png')}
-                            style={{ width: 150, height: 150, marginBottom: 20, resizeMode: 'contain' }}
+                            source={require('../assets/nothing.png')}
+                            style={{ width: 200, height: 200, marginBottom: 20, resizeMode: 'contain' }}
                         />
-                        <Text style={{ fontSize: 13, color: '#737373', fontWeight: '500' }}>Nothing is scheduled for tomorrow..</Text>
+                        <Text style={{ fontSize: 13, color: '#737373', fontWeight: 'bold' }}>NICE!</Text>
+                        <Text style={{ fontSize: 13, color: '#737373', fontWeight: '500' }}>Nothing is scheduled.</Text>
                     </View>
-                }
-                <StatusBar style='auto' />
-            </ScrollView>
-            : <View style={styles.container}>
-                <Text style={styles.subTitle}>{`Good ${greet}`}</Text>
-                <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-                    <Image
-                        source={require('../assets/nothing.png')}
-                        style={{ width: 200, height: 200, marginBottom: 20, resizeMode: 'contain' }}
-                    />
-                    <Text style={{ fontSize: 13, color: '#000', fontWeight: 'bold' }}>NICE!</Text>
-                    <Text style={{ fontSize: 13, color: '#737373', fontWeight: '500' }}>Nothing is scheduled.</Text>
-                </View>
-            </View>
+                </Container>
+            </ThemeProvider>
+
+
     )
 }
 
 const styles = StyleSheet.create({
     title: {
+        color: '#20537d',
         fontSize: 34,
         fontWeight: 'bold',
         marginBottom: 35,
@@ -165,9 +224,10 @@ const styles = StyleSheet.create({
     subTitle: {
         fontSize: 25,
         fontWeight: 'bold',
-        marginBottom: 35,
+        marginBottom: 15,
         marginTop: 10,
         textAlign: 'center',
+        color: '#20537d',
     },
     pic: {
         width: 42,
