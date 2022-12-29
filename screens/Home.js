@@ -11,6 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Notifications from 'expo-notifications';
 import { useNavigation } from '@react-navigation/native';
 import * as Device from 'expo-device';
+import { NavigationContainer } from '@react-navigation/native';
 import moment from 'moment';
 
 Notifications.setNotificationHandler({
