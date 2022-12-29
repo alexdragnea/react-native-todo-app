@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, TextInput, Switch, TouchableWithoutFeedback, Keyboard, Alert, Button  } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, TouchableOpacity, Text, StyleSheet, TextInput, Switch, TouchableWithoutFeedback, Keyboard, Alert, Button } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
+import { ThemeProvider } from 'styled-components/native';
+import { darkTheme, lightTheme } from '../components/theme';
+import { Container } from '../components/style';
 import { addTodoReducer } from '../redux/todosSlice';
 import * as Notifications from 'expo-notifications';
 
@@ -18,6 +21,18 @@ export default function AddTodo() {
     const listTodos = useSelector(state => state.todos.todos);
     const navigation = useNavigation();
     const dispatch = useDispatch();
+    const [theme, setTheme] = useState('light');
+
+    useEffect(() => {
+        getTheme();
+    }, []);
+
+    const getTheme = async () => {
+        const themeValue = await AsyncStorage.getItem('@theme');
+        console.log(themeValue);
+        setTheme(themeValue);
+    };
+
 
     const showDatePicker = () => {
         setDatePickerVisible(true);
@@ -90,81 +105,89 @@ export default function AddTodo() {
 
     return (
         <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
-            <View style={styles.container}>
-                <Text style={styles.title}>Add a Todo</Text>
-                <View style={styles.inputContainer}>
-                    <Text style={styles.inputTitle}>Name</Text>
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder="Todo"
-                        placeholderTextColor="#00000030"
-                        onChangeText={(text) => { setName(text) }}
-                    />
-                </View>
-                <View style={styles.inputContainer}>
-                    <Text style={styles.inputTitle}>Description </Text>
-                    <TextInput
-                        style={styles.descInput}
-                        placeholder="Description"
-                        placeholderTextColor="#00000030"
-                        onChangeText={(desc) => { setDescription(desc) }}
-                    />
-                </View>
-                <View style={styles.inputContainer}>
-                    <Text style={styles.inputTitle}>Time</Text>
-                    <Button title="Select time" onPress={showDatePicker} />
-                    <DateTimePickerModal
-                        date={date}
-                        isVisible={datePickerVisible}
-                        mode="time"
-                        onConfirm={handleConfirm}
-                        onCancel={hideDatePicker}
-                    />
-                </View>
-                <View style={[styles.inputContainer, { paddingBottom: 0, alignItems: 'center' }]}>
-                    <View>
-                        <Text style={styles.inputTitle}>Today</Text>
-                        <Text style={{ color: '#00000040', fontSize: 12, maxWidth: '84%', paddingBottom: 10 }}>If you disable today, the task will be considered as tomorrow.</Text>
-                    </View>
-                    <Switch
-                        value={isToday}
-                        onValueChange={(value) => { setIsToday(value) }}
-                    />
-                </View>
-                <View style={[styles.inputContainer, { paddingBottom: 0, alignItems: 'center' }]}>
-                    <View>
-                        <Text style={styles.inputTitle}>Alert</Text>
-                    </View>
-                    <Switch
-                        value={withAlert}
-                        onValueChange={(value) => { setWithAlert(value) }}
-                    />
-                </View>
+            <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
+                <Container>
+                    <View style={Container.Container}>
+                        <Text style={styles.title}>Add a Todo</Text>
+                        <View style={styles.inputContainer}>
+                            <Text style={styles.inputTitle}>Name</Text>
+                            <TextInput
+                                style={styles.textInput}
+                                placeholder="Todo title"
+                                placeholderTextColor="#BFD7ED"
+                                onChangeText={(text) => { setName(text) }}
+                            />
+                        </View>
+                        <View style={styles.inputContainer}>
+                            <Text style={styles.inputTitle}>Description </Text>
+                            <TextInput
+                                style={styles.descInput}
+                                placeholder="Todo description"
+                                placeholderTextColor="#BFD7ED"
+                                onChangeText={(desc) => { setDescription(desc) }}
+                            />
+                        </View>
+                        <View style={styles.inputContainer}>
+                            <Text style={styles.inputTitle}>Time</Text>
+                            <Button title="Select time" onPress={showDatePicker} />
+                            <DateTimePickerModal
+                                date={date}
+                                isVisible={datePickerVisible}
+                                mode="time"
+                                onConfirm={handleConfirm}
+                                onCancel={hideDatePicker}
+                            />
+                        </View>
+                        <View style={[styles.inputContainer, { paddingBottom: 0, alignItems: 'center' }]}>
+                            <View>
+                                <Text style={styles.inputTitle}>Today</Text>
+                                <Text style={{ color: '#0074B7', fontSize: 12, maxWidth: '84%', paddingBottom: 10 }}>If you disable today, the task will be scheduled for tomorrow.</Text>
+                            </View>
+                            <Switch
+                                value={isToday}
+                                onValueChange={(value) => { setIsToday(value) }}
+                            />
+                        </View>
+                        <View style={[styles.inputContainer, { paddingBottom: 0, alignItems: 'center' }]}>
+                            <View>
+                                <Text style={styles.inputTitle}>Alert</Text>
+                            </View>
+                            <Switch
+                                value={withAlert}
+                                onValueChange={(value) => { setWithAlert(value) }}
+                            />
+                        </View>
 
-                <TouchableOpacity onPress={addTodo} style={styles.button}>
-                    <Text style={{ color: 'white' }}>Done</Text>
-                </TouchableOpacity>
-            </View>
+                        <TouchableOpacity onPress={addTodo} style={styles.button}>
+                            <Text style={{ color: 'white' }}>Done</Text>
+                        </TouchableOpacity>
+                    </View>
+                </Container>
+            </ThemeProvider>
         </TouchableWithoutFeedback>
+
     );
 }
 
 const styles = StyleSheet.create({
     title: {
+        color: '#20537d',
         fontSize: 34,
         fontWeight: 'bold',
         marginBottom: 35,
         marginTop: 10,
     },
     textInput: {
-        borderBottomColor: '#00000030',
+        borderBottomColor: '#60A3D9',
         borderBottomWidth: 1,
         width: '80%',
+        color: '#60A3D9',
     },
     descInput: {
-        borderBottomColor: '#00000030',
+        borderBottomColor: '#60A3D9',
         borderBottomWidth: 1,
         width: '68%',
+        color: '#60A3D9',
     },
     container: {
         flex: 1,
@@ -174,7 +197,8 @@ const styles = StyleSheet.create({
     inputTitle: {
         fontSize: 20,
         fontWeight: '600',
-        lineHeight: 24
+        lineHeight: 24,
+        color: '#20537d',
     },
     inputContainer: {
         justifyContent: 'space-between',
@@ -186,7 +210,7 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#000000',
+        backgroundColor: '#20537d',
         height: 46,
         borderRadius: 11,
     }
