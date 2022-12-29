@@ -14,6 +14,7 @@ export const ThemeButton = styled.Pressable`
 `;
 
 export const ThemeButtonText = styled.Text`
+    top: -35px;
     font-size: 16px;
     color: ${(props) => props.theme['BUTTON_COLOR']};
 `;

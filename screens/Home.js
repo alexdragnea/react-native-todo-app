@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, Platform, StatusBar, S
 import { useSelector, useDispatch } from 'react-redux';
 import { ThemeProvider } from 'styled-components/native';
 import { darkTheme, lightTheme } from '../components/theme';
-import { Container, ThemeButton } from '../components/style';
+import { Container, ThemeButton, ThemeButtonText } from '../components/style';
 import { hideComplitedReducer, setTodosReducer } from '../redux/todosSlice';
 import ListTodos from '../components/ListTodos';
 import { useGetTodos } from '../hooks/useGetTodos';
@@ -140,10 +140,9 @@ export default function Home() {
                     <ScrollView style={styles.container}>
                         <Text style={styles.subTitle}>{`Good ${greet}`}</Text>
                         <ThemeButton>
-                            <Image
-                                source={require('../assets/dark-mode.png')}
-                                style={{ width: 35, height: 35, marginLeft: 1, marginTop: -35, resizeMode: 'contain' }}
-                            />
+                            <ThemeButtonText onPress={() => toggleTheme()}>
+                                {theme === 'dark' ? 'Light' : 'Dark'} Mode
+                            </ThemeButtonText>
                             <Switch
                                 value={isEnabled}
                                 onValueChange={() => (toggleTheme(), setIsEnabled(previousState => !previousState))}>
@@ -188,14 +187,12 @@ export default function Home() {
                 <Container>
                     <Text style={styles.subTitle}>{`Good ${greet}`}</Text>
                     <ThemeButton>
-                        <Image
-                            source={require('../assets/dark-mode.png')}
-                            style={{ width: 35, height: 35, marginLeft: 1, marginTop: -35, resizeMode: 'contain' }}
-                        />
-                        <Switch
+                        <ThemeButtonText>
+                            {theme === 'dark' ? 'Light' : 'Dark'} Mode
+                        </ThemeButtonText>
+                        <Switch style={{ bottom: 30 }}
                             value={isEnabled}
                             onValueChange={() => (toggleTheme(), setIsEnabled(previousState => !previousState))}>
-
                         </Switch>
                     </ThemeButton>
                     <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
