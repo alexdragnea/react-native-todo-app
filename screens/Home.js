@@ -141,7 +141,7 @@ export default function Home() {
                         <Text style={styles.subTitle}>{`Good ${greet}`}</Text>
                         <ThemeButton>
                             <ThemeButtonText onPress={() => toggleTheme()}>
-                                {theme === 'dark' ? 'Light' : 'Dark'} Mode
+                                {theme === 'dark' ? 'Dark' : 'Light'} Mode
                             </ThemeButtonText>
                             <Switch
                                 value={isEnabled}
@@ -188,7 +188,7 @@ export default function Home() {
                     <Text style={styles.subTitle}>{`Good ${greet}`}</Text>
                     <ThemeButton>
                         <ThemeButtonText>
-                            {theme === 'dark' ? 'Light' : 'Dark'} Mode
+                            {theme === 'dark' ? 'Dark' : 'Light'} Mode
                         </ThemeButtonText>
                         <Switch style={{ bottom: 30 }}
                             value={isEnabled}
