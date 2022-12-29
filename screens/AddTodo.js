@@ -29,7 +29,6 @@ export default function AddTodo() {
 
     const getTheme = async () => {
         const themeValue = await AsyncStorage.getItem('@theme');
-        console.log(themeValue);
         setTheme(themeValue);
     };
 
