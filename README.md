@@ -60,7 +60,7 @@ jobs:
         run: expo build:android
 ```
 
-![QR for Android](./developer-guide/images/android-expo-qr.png)
+![QR for Android](./developer-guide/images/android-expo-qr.pn{:height="36px" width="36px"}
 
 
 ## Features
@@ -69,7 +69,7 @@ jobs:
 
 At the first launch of the applications, users will be greeted with a onboarding screen.
 
-![First Launch](./developer-guide/images/first-launch.png)
+![First Launch](./developer-guide/images/first-launch.png){:height="36px" width="36px"}
 
 ### Home screen
 
