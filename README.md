@@ -69,6 +69,7 @@ jobs:
 
 At the first launch of the applications, users will be greeted with a onboarding screen.
 
+<img src="https://github.com/alexdragnea/react-native-todo-app/tree/main/developer-guide/images" width="600">
 ![First Launch](./developer-guide/images/first-launch.png){:height="36px" width="36px"}
 
 ### Home screen
