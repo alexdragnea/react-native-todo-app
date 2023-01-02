@@ -99,7 +99,7 @@ The to do's object as json
 
 <img src="./developer-guide/images/created.png" width="50%" height="50%">
 
-<img src="(./developer-guide/images/tomorrow.png" width="50%" height="50%">
+<img src="./developer-guide/images/tomorrow.png" width="50%" height="50%">
 
 <img src="./developer-guide/images/today-tomorrow.png" width="50%" height="50%">
 
