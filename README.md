@@ -69,13 +69,14 @@ jobs:
 
 At the first launch of the applications, users will be greeted with a onboarding screen.
 
-![First Launch](./developer-guide/images/first-launch.png){:height="36px" width="36px"}
+<img src="./developer-guide/images/first-launch.png" width="50%" height="50%">
 
 ### Home screen
 
 
 If there are no todo's to be done for the current day/next day then the below screen will be displayed.
-![Home Screen](./developer-guide/images/home-screen.png)
+
+<img src="./developer-guide/images/home-screen.png" width="50%" height="50%">
 
 To do's can be added for the current day or the next day (tomorrow) given a time.
 
@@ -96,28 +97,30 @@ The to do's object as json
   }
 ```
 
-![Created](./developer-guide/images/created.png)
+<img src="./developer-guide/images/created.png" width="50%" height="50%">
 
-![Tomorrow](./developer-guide/images/tomorrow.png)
-![Today-Tomorrow](./developer-guide/images/today-tomorrow.png)
+<img src="(./developer-guide/images/tomorrow.png" width="50%" height="50%">
+<img src="./developer-guide/images/today-tomorrow.png" width="50%" height="50%">
 
 
 The to do's can be marked as completed and an alert dialog will pop up.After the todo is marked as completed it can be hidden using the ```Hide Completed``` button.
 
-![Completed](./developer-guide/images/completed.png)
+<img src="./developer-guide/images/completed.png" width="50%" height="50%">
 
 ### Dark/Light mode
 
-![Light Mode](./developer-guide/images/home-screen.png)
-![Dark Mode](./developer-guide/images/dark-mode.png)
+
+<img src="./developer-guide/images/home-screen.png" width="50%" height="50%">
+<img src="./developer-guide/images/dark-mode.png" width="50%" height="50%">
 
 ### Push notification
 
 If the button ```Alert``` is pressed, then a notification will be scheduled at the time setted on the todo.
 
 
-![Notification example](./developer-guide/images/notification-ex.png)
-![Notification example](./developer-guide/images/notification.png)
+<img src="./developer-guide/images/notification-ex.png" width="50%" height="50%">
+<img src="./developer-guide/images/notification.png" width="50%" height="50%">
+
 
 
 ## Libraries
