@@ -25,6 +25,7 @@ export default function Home() {
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
     const [theme, setTheme] = useState('light');
+    const [user, setUser] = useState('');
 
     useEffect(() => {
         getThemeAndSetIt();
@@ -67,6 +68,7 @@ export default function Home() {
 
     useEffect(() => {
         findGreet();
+        getUserName();
     }, []);
 
 
@@ -77,7 +79,7 @@ export default function Home() {
 
     const checkFirstLaunch = async () => {
         const firstLaunch = await AsyncStorage.getItem('@FirstLaunch');
-        if (firstLaunch) {
+        if (!firstLaunch) {
             return;
         }
         await AsyncStorage.setItem('@FirstLaunch', 'true');
@@ -127,6 +129,17 @@ export default function Home() {
         return token;
     }
 
+    const getUserName = async () => {
+        try {
+            const username = await AsyncStorage.getItem('user');
+            console.log(username);
+            const name = JSON.parse(username).name;
+            setUser(name);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
     const todayTodos = todos.filter(todo => moment(todo.hour).isSame(moment(), 'day'));
     const tomorrowTodos = todos.filter(todo => moment(todo.hour).isAfter(moment(), 'day'));
 
@@ -138,12 +151,12 @@ export default function Home() {
             <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
                 <Container>
                     <ScrollView style={styles.container}>
-                        <Text style={styles.subTitle}>{`Good ${greet}`}</Text>
+                        <Text style={styles.subTitle}>{`Good ${greet} ${user}`}</Text>
                         <ThemeButton>
                             <ThemeButtonText onPress={() => toggleTheme()}>
                                 {theme === 'dark' ? 'Dark' : 'Light'} Mode
                             </ThemeButtonText>
-                            <Switch
+                            <Switch style={{ bottom: 30 }}
                                 value={isEnabled}
                                 onValueChange={() => (toggleTheme(), setIsEnabled(previousState => !previousState))}>
 
@@ -185,7 +198,7 @@ export default function Home() {
 
             <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
                 <Container>
-                    <Text style={styles.subTitle}>{`Good ${greet}`}</Text>
+                    <Text style={styles.subTitle}>{`Good ${greet} ${user}`}</Text>
                     <ThemeButton>
                         <ThemeButtonText>
                             {theme === 'dark' ? 'Dark' : 'Light'} Mode
@@ -219,12 +232,20 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     subTitle: {
-        fontSize: 25,
+        fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 15,
         marginTop: 10,
         textAlign: 'center',
         color: '#20537d',
+    },
+    userName: {
+        fontSize: 21,
+        fontWeight: 'bold',
+        marginBottom: 105,
+        marginTop: -15,
+        textAlign: 'center',
+        color: '#702963',
     },
     pic: {
         width: 42,
