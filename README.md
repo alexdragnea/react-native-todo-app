@@ -202,4 +202,4 @@ Redux Toolkit is an official package from the Redux Team that helps configuring 
 
 ## Demo
 
-![QR for Android](./developer-guide/images/demo.gif)
+![Demo](./developer-guide/images/demo.gif)
