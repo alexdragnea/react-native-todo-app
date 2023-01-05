@@ -25,6 +25,7 @@ With the help of github actions, at every merge into main branch, the latest cod
 
 There is only a workflow that runs on the main branch and builds the code.Currently, the QR code is working only for android devices, for IOS devices the project needs to be cloned and then the expo needs to be used locally.
 
+![QR for Android](./developer-guide/images/android-expo-qr.png)
 
 Github actions workflow sample 
 
@@ -60,31 +61,27 @@ jobs:
         run: expo build:android
 ```
 
-![QR for Android](./developer-guide/images/android-expo-qr.pn{:height="36px" width="36px"}
-
 
 ## Features
 
-### First launch of the application
+ - First launch of the application: 
+   - users will be greeted with a onboarding screen in which they need to enter their name in order to continue.
+ 
 
-At the first launch of the applications, users will be greeted with a onboarding screen.
+ - Home screen:
+   - on this screen, users will be greeted with Good Morning, Afternoon or Evening based on the time and also with the name they provided on the onboarding screen.
+   
+   - todo's can be added for the current day or the next day (tomorrow) given a time.
 
-<img src="./developer-guide/images/first-launch.png" width="50%" height="50%">
+   - if the button ```Today``` is not presset, then the todo will be marked as tomorrow.
 
-### Home screen
-
-
-If there are no todo's to be done for the current day/next day then the below screen will be displayed.
-
-<img src="./developer-guide/images/home-screen.png" width="50%" height="50%">
-
-To do's can be added for the current day or the next day (tomorrow) given a time.
-
-If the button ```Today``` is not presset, then the todo will be marked as tomorrow.
-
-If the button ```Alert``` is not pressed, then a notification will not be scheduled.
-
-The to do's object as json
+   - if the button ```Alert``` is not pressed, then a notification will not be scheduled.
+   
+   - The todo's can be marked as completed and an alert dialog will pop up.After the todo is marked as completed it can be hidden using the ```Hide Completed``` button.
+    
+   - The todo's can be deleted using a button.
+   
+   - The todo's object as json
 
 ```
  Object {
@@ -97,36 +94,21 @@ The to do's object as json
   }
 ```
 
-<img src="./developer-guide/images/created.png" width="50%" height="50%">
+ - Dark/Light mode: users can set the mode they want to view the application (dark/light), the setting will be saved and the whole implementaiton is based on <strong>ThemeProvider</strong> library.
+ 
 
-<img src="./developer-guide/images/tomorrow.png" width="50%" height="50%">
+ - Push notification:
 
-<img src="./developer-guide/images/today-tomorrow.png" width="50%" height="50%">
-
-
-The to do's can be marked as completed and an alert dialog will pop up.After the todo is marked as completed it can be hidden using the ```Hide Completed``` button.
-
-<img src="./developer-guide/images/completed.png" width="50%" height="50%">
-
-### Dark/Light mode
-
-
-<img src="./developer-guide/images/home-screen.png" width="50%" height="50%">
-<img src="./developer-guide/images/dark-mode.png" width="50%" height="50%">
-
-### Push notification
-
-If the button ```Alert``` is pressed, then a notification will be scheduled at the time setted on the todo.
-
-
-<img src="./developer-guide/images/notification-ex.png" width="50%" height="50%">
-<img src="./developer-guide/images/notification.png" width="50%" height="50%">
-
+   - If the button ```Alert``` is pressed, then a notification will be scheduled at the time setted on the todo.
+   
 
 
 ## Libraries
 
 The libraries used can be found inside ```package.json``` file.
+
+
+```package.json```
 
 ```
 "dependencies": {
@@ -214,4 +196,10 @@ Persisting data:
 React Navigation is a standalone library that enables you to implement navigation functionality in a React Native application.
 
 ### ReduxJS ToolKit
+
 Redux Toolkit is an official package from the Redux Team that helps configuring Redux store and reduces boilerplate.
+
+
+## Demo
+
+![QR for Android](./developer-guide/images/demo.gif)
