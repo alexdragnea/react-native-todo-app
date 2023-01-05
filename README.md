@@ -77,11 +77,11 @@ jobs:
 
    - if the button ```Alert``` is not pressed, then a notification will not be scheduled.
    
-   - The todo's can be marked as completed and an alert dialog will pop up.After the todo is marked as completed it can be hidden using the ```Hide Completed``` button.
+   - the todo's can be marked as completed and an alert dialog will pop up.After the todo is marked as completed it can be hidden using the ```Hide Completed``` button.
     
-   - The todo's can be deleted using a button.
+   - the todo's can be deleted using a button.
    
-   - The todo's object as json
+   - the todo's object as json
 
 ```
  Object {
