@@ -24,7 +24,7 @@ export default function Onboarding() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Welcome to TodoApp</Text>
+            <Text style={styles.title}>Welcome to Todo App</Text>
             <View style={styles.featureContainer}>
                 <Image style={styles.icon} source={require('../assets/arrows.png')} />
                 <View style={{ flex: 1 }}>

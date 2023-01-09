@@ -73,13 +73,13 @@ export default function Home() {
 
 
     useEffect(() => {
-        registerForPushNotificationsAsync().then(token => setExpoPushToken(token)).catch((err)=>{});
+        registerForPushNotificationsAsync().then(token => setExpoPushToken(token)).catch((err) => { });
         checkFirstLaunch();
     }, []);
 
     const checkFirstLaunch = async () => {
         const firstLaunch = await AsyncStorage.getItem('@FirstLaunch');
-        if (!firstLaunch) {
+        if (firstLaunch) {
             return;
         }
         await AsyncStorage.setItem('@FirstLaunch', 'true');
@@ -150,19 +150,19 @@ export default function Home() {
 
             <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
                 <Container>
-                    
-                        <Text style={styles.subTitle}>{`Good ${greet} ${user}`}</Text>
-                        <ThemeButton>
-                            <ThemeButtonText >
-                                {theme === 'dark' ? 'Dark' : 'Light'} Mode
-                            </ThemeButtonText>
-                            <Switch style={{ bottom: 30 }}
-                                value={isEnabled}
-                                onValueChange={() => (toggleTheme(), setIsEnabled(previousState => !previousState))}>
 
-                            </Switch>
-                        </ThemeButton>
-                        <View style={styles.container}>
+                    <Text style={styles.subTitle}>{`Good ${greet} ${user}`}</Text>
+                    <ThemeButton>
+                        <ThemeButtonText >
+                            {theme === 'dark' ? 'Dark' : 'Light'} Mode
+                        </ThemeButtonText>
+                        <Switch style={{ bottom: 30 }}
+                            value={isEnabled}
+                            onValueChange={() => (toggleTheme(), setIsEnabled(previousState => !previousState))}>
+
+                        </Switch>
+                    </ThemeButton>
+                    <View style={styles.container}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                             <Text style={styles.title}>Today</Text>
                             <TouchableOpacity onPress={handleHideCompleted}>
@@ -180,8 +180,8 @@ export default function Home() {
                                 <Text style={{ fontSize: 13, color: '#737373', fontWeight: '500' }}>You don't have any task, enjoy your day.</Text>
                             </View>
                         }
-                        </View>
-                        <View style={styles.container}>
+                    </View>
+                    <View style={styles.container}>
                         <Text style={styles.title}>Tomorrow</Text>
                         {tomorrowTodos.length > 0
                             ? <ListTodos todosData={tomorrowTodos} />
@@ -194,7 +194,7 @@ export default function Home() {
                             </View>
                         }
                         <StatusBar style='auto' />
-                        </View>
+                    </View>
                 </Container>
             </ThemeProvider >
             :
@@ -260,6 +260,6 @@ const styles = StyleSheet.create({
         flex: 1,
         minWidth: "100%",
         paddingHorizontal: 15,
-      }
+    }
 
 });
