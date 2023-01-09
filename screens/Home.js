@@ -73,7 +73,7 @@ export default function Home() {
 
 
     useEffect(() => {
-        registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+        registerForPushNotificationsAsync().then(token => setExpoPushToken(token)).catch((err)=>{});
         checkFirstLaunch();
     }, []);
 
@@ -96,7 +96,7 @@ export default function Home() {
             return;
         }
         setIsHidden(!isHidden);
-        dispatch(hideComplitedReducer());
+        //dispatch(hideComplitedReducer());
         // setLocalData(localData.filter(item => item.isCompleted === false));
     }
 
@@ -142,7 +142,7 @@ export default function Home() {
 
     const todayTodos = todos.filter(todo => moment(todo.hour).isSame(moment(), 'day'));
     const tomorrowTodos = todos.filter(todo => moment(todo.hour).isAfter(moment(), 'day'));
-
+    const todayCompletedTodos = todayTodos.filter((todo) => !todo.isCompleted);
     return (
 
 
@@ -150,10 +150,10 @@ export default function Home() {
 
             <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
                 <Container>
-                    <ScrollView style={styles.container}>
+                    
                         <Text style={styles.subTitle}>{`Good ${greet} ${user}`}</Text>
                         <ThemeButton>
-                            <ThemeButtonText onPress={() => toggleTheme()}>
+                            <ThemeButtonText >
                                 {theme === 'dark' ? 'Dark' : 'Light'} Mode
                             </ThemeButtonText>
                             <Switch style={{ bottom: 30 }}
@@ -162,6 +162,7 @@ export default function Home() {
 
                             </Switch>
                         </ThemeButton>
+                        <View style={styles.container}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                             <Text style={styles.title}>Today</Text>
                             <TouchableOpacity onPress={handleHideCompleted}>
@@ -169,7 +170,7 @@ export default function Home() {
                             </TouchableOpacity>
                         </View>
                         {todayTodos.length > 0
-                            ? <ListTodos todosData={todayTodos} />
+                            ? <ListTodos todosData={!isHidden ? todayTodos : todayCompletedTodos} />
                             : <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginBottom: 20 }}>
                                 <Image
                                     source={require('../assets/nothingTomorrow.png')}
@@ -179,6 +180,8 @@ export default function Home() {
                                 <Text style={{ fontSize: 13, color: '#737373', fontWeight: '500' }}>You don't have any task, enjoy your day.</Text>
                             </View>
                         }
+                        </View>
+                        <View style={styles.container}>
                         <Text style={styles.title}>Tomorrow</Text>
                         {tomorrowTodos.length > 0
                             ? <ListTodos todosData={tomorrowTodos} />
@@ -191,7 +194,7 @@ export default function Home() {
                             </View>
                         }
                         <StatusBar style='auto' />
-                    </ScrollView>
+                        </View>
                 </Container>
             </ThemeProvider >
             :
@@ -255,7 +258,8 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        paddingHorizontal: 15
-    },
+        minWidth: "100%",
+        paddingHorizontal: 15,
+      }
 
 });
